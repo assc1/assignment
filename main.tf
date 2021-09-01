@@ -45,9 +45,9 @@ resource "aws_security_group" "allow-ssh" {
 }
 
 resource "aws_instance" "ec2-web" {
-  ami                    = "ami-02f84cf47c23f1769"
+  ami                    = "ami-0443305dabd4be2bc"
   instance_type          = "t2.micro"
-  key_name               = "k3s"
+  key_name               = "assignment"
   vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
 
   provisioner "remote-exec" {
@@ -61,14 +61,14 @@ resource "aws_instance" "ec2-web" {
     type        = "ssh"
     user        = "ec2-user"
     host        = "${aws_instance.ec2-web.public_ip}"
-    private_key = "${file("/opt/k3s.pem")}"
+    private_key = "${file("assignment.pem")}"
   }
 }
 
 resource "aws_instance" "ec2-node" {
-  ami                    = "ami-02f84cf47c23f1769"
+  ami                    = "ami-0443305dabd4be2bc"
   instance_type          = "t2.micro"
-  key_name               = "k3s"
+  key_name               = "assignment"
   vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
 }
 
